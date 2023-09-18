@@ -1,1 +1,313 @@
-<p>AAI project page</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdaIn: Adapt and Inject AudioCue to Diffusion Models for Image Generation, Editing and Stylization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta property="og:title" content="Sound-Guided Semantic Image Manipulation">
+    <meta property="og:url" content="https://cvpr2022-7227.github.io/">
+	<meta property="og:image" content="https://cvpr2022-7227.github.io/image/overview.png">
+	<meta name="description" content="cvpr2022-7227">
+	<meta name="keywords" content="Sound-Guided Semantic Image Manipulation">
+	<meta name="author" content="....">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="title">
+    <center>
+    <h1>Align, Adapt and Inject: Audio-guided Image Generation, Editing and Stylization</h1>
+    <!-- <h3>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2022</h3> -->
+    </center>
+    <!-- <hr> -->
+</div>
+
+<div class="byline">
+    <div class="authors">
+        <center>
+            <div class="author"><sup> <h2>Yue Yang</a><sup>1</sup> &emsp; Kaipeng Zhang</a><sup>2*</sup> &emsp; Yuying Ge</a><sup>3</sup> &emsp; Wenqi Shao</a><sup>2</sup>&emsp; Zeyue Xue</a><sup>3</sup> &emsp;   Yu Qiao</a><sup>2</sup>&emsp; Ping Luo</a><sup>2,3*</sup></h2></sup></div>
+        </center>
+    </div>
+    <div class="affiliations">
+        <center>
+            <p class="affiliation"><sup> </sup><h3>Shanghai Jiao Tong University<sup>1</sup> &emsp; Shanghai AI Laboratory<sup>2</sup>&emsp; The University of Hong Kong<sup>3</sup></h3></p>
+        </center>
+    </div>
+    <div class="links">
+        <center>
+            <a href="https://openaccess.thecvf.com/content/CVPR2022/html/Lee_Sound-Guided_Semantic_Image_Manipulation_CVPR_2022_paper.html" class="link">
+                [Paper]
+            </a>
+            <a href="https://github.com/kuai-lab/sound-guided-semantic-image-manipulation" class="link">
+                [Code]
+            </a>
+        </center>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="center-img">
+        <img class="content" src="figs\fig_ex_qual.png" style="width:100%; height:auto;">
+    </div>
+
+    <div class="sections-container">
+        <div class="section">
+            <h2 class="section-title">Abstract</h2>
+            <p>
+                Diffusion models have significantly advanced various image generative tasks, including image generation, editing, and stylization. 
+                While text prompts are commonly used as guidance in most generative models, audio presents a valuable alternative, 
+                as it inherently accompanies corresponding scenes and provides abundant information for guiding image generative tasks. 
+                In this paper, we propose a novel and unified framework named Align, Adapt, and Inject (AAI) to explore the cue role of audio, 
+                which effectively realizes audio-guided image generation, editing, and stylization simultaneously. 
+                Specifically,AAI first aligns the audio embedding with visual features,
+                and then adapts the aligned audio embedding to an AudioCue enriched with visual semantics, 
+                finally injects the AudioCue into existing Text-to-Image diffusion model in a plug-and-play manner. 
+                The experiment results demonstrate that AAI successfully extracts rich information from audio, 
+                and outperforms previous work in multiple image generative tasks.
+            </p>
+            <figure style="text-align: center;">
+                <figcaption style="text-align: center;"> 🔊Fire.</figcaption>
+                <audio controls>
+                    <source  src="wavs/gen/fire.wav" type="audio/wav">
+                </audio>
+            </figure>
+            <div class="center-img">
+                <img class="content" src="figs\fig_intro.png" style="width:44%; height:auto;"/>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Method</h2>
+            <div class="center-img">
+                <img class="content" src="figs\fig_framework_2.png"/>
+            </div>
+            <p style="margin-top: 30px">
+                we propose a unified framework named AAI extracting AudioCue and leveraging the cue role of audio for existing T2I diffusion models 
+                to accomplish image generation, image editing, and image stylization, as illustrated in the above framework. 
+                Specifically, AAI first generates the audio embedding which aligns well with the visual branch through contrastive training. 
+                Then, we introduce an adapter for each audio embedding to quickly adapt it to an AudioCue under the supervision of a few retrieved images. 
+                The adaption process can enrich specific semantics in images into the AudioCue. 
+                The obtained AudioCue can be injected into T2I models plug and play to achieve various image manipulation tasks effectively and efficiently. 
+                Experimental results show that AAI outperforms other audio-guided methods in CLIPScore and ImageReward Score.
+            </p>
+            <p style="margin-top: 30px">
+                We aim to implement an audio-guided generative framework by injecting an AudioCue as nouns, verbs, and adjectives into existing T2I models, 
+                to achieve image generation, editing, and stylization simultaneously. 
+                To this end, we introduce AAI, which aligns and adapts the input audio to produce AudioCue,
+                and then injects the AudioCue into the T2I diffusion model. 
+                As shown in the figure above, AAI mainly consists of three stages: (i) Audio Alignment (ii) Audio Adaption, and (iii) Audio Injection.
+            </p>
+        </div>
+
+
+
+        <div class="section">
+            <h2 class="section-title">Generation Results</h2>
+            <p> As demonstrated in these generated images, when adopted for image generation, 
+                the AudioCue can effectively capture the semantics of corresponding nouns in the audio, such as scenery (seawave) and objects (fireworks). 
+                The generated images are diverse in shapes and colors, providing sufficient details</p>
+
+            <div class="center-img">
+                <figure>
+                    <img class="auto-height" src="imgs/gen/fire.png"/>
+                    <figcaption style="text-align: center;"> 🔊Fire.</figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/fire.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <img class="auto-height" src="imgs/gen/seawave.png"/>
+                    <figcaption style="text-align: center;"> 🔊Seawave lapping.</figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/seawave.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <img class="auto-height" src="imgs/gen/CarEngine.png"/>
+                    <figcaption style="text-align: center;"> 🔊Car Engine.</figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/car.wav" type="audio/wav">
+                    </audio>
+                </figure>
+            </div>
+
+            <div class="center-img">
+                <figure>
+                    <img class="auto-height" src="imgs/gen/fireworks.png"/>
+                    <figcaption style="text-align: center;"> 🔊Fireworks.</figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/fireworks.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <img class="auto-height" src="imgs/gen/waterfall.png"/>
+                    <figcaption style="text-align: center;"> 🔊Weak WaterFall Scene 1.</figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/waterfall.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <img class="auto-height" src="imgs/gen/waterfall2.png"/>
+                    <figcaption style="text-align: center;"> 🔊Stronger WaterFall Scene 2. </figcaption>
+                    <audio controls>
+                        <source src="wavs/gen/" type="audio/wav">
+                    </audio>
+                </figure>
+            </div>
+
+
+            <p>
+                As figure below shows, AAI can successfully and vividly extract visual
+                information in audio, outperforming other audio-guided image manipulation methods (recent AT [ 6]), 
+                and sometimes behave better than SDM [2]. The right part of figure below verifies that the image generated by AAI is
+                more preferred by users and succeed in image naturalness.
+            </p>
+            
+
+            <div class="center-img">
+                <figure>
+                    <img class="content" src="figs/gen_comp.png"/>
+                </figure>
+            </div>
+            
+
+
+
+            <div class="section">
+                <h2 class="section-title">Editing Results</h2>
+                <p> In terms of image editing, we inject the AudioCue into source prompts,
+                    they turn into “A ∗ city”, and “A ∗ tiger”. 
+                    It is obvious that the thunder is added above the city and the tiger opening its mouse, embodying the AudioCues can act as verbs. 
+                    It’s worth noting that our model can preserve the other pixels completely,
+                    which is valuable for image editing.</p>
+    
+                <div class="center-img">
+                    <figure>
+                        <img class="auto-height" src="imgs/edit/thunder.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Thunder.</figcaption>
+                        <audio controls>
+                            <source src="wavs/edit/thunder.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                    <figure>
+                        <img class="auto-height" src="imgs/edit/tiger.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Tiger Roaring.</figcaption>
+                        <audio controls>
+                            <source src="wavs/edit/tiger.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                    <figure>
+                        <img class="auto-height" src="imgs/edit/fireworks.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Fireworks.</figcaption>
+                        <audio controls>
+                            <source src="wavs/edit/fireworks.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2 class="section-title">Stylization Results</h2>
+                <p> As for image stylization, typical scenes are that different weathers usually accompany specific audios. 
+                    Here, we show that our AudioCue can hint an abstract style, like an adjective to render a whole image. 
+                    Below the stylied images shows the car is turned driving in the misty rain and the forest is tinged with fiery red 
+                    by adding “in the style of ∗” after the original prompts. </p>
+    
+                <div class="center-img">
+                    <figure>
+                        <img class="auto-height" src="imgs/sty/road.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Fire.</figcaption>
+                        <audio controls>
+                            <source src="wavs/sty/rain.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                    <figure>
+                        <img class="auto-height" src="imgs/sty/wind.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Rain.</figcaption>
+                        <audio controls>
+                            <source src="wavs/sty/wind.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                    <figure>
+                        <img class="auto-height" src="imgs/sty/house.gif"/>
+                        <figcaption style="text-align: center;"> 🔊Snow.</figcaption>
+                        <audio controls>
+                            <source src="wavs/sty/snow.wav" type="audio/wav">
+                        </audio>
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2 class="section-title">Different Sound in Same Label</h2>
+                <p>  As depicted in figure below, the fourth line represents images generated by
+                    our model, which are tailored to each distinct audio input. In contrast, the third line corresponds
+                    to the relative version [ 3, 43 ], where we eliminate the audio adapter while keep all other settings
+                    unchanged, so it only uses reference images to invert the vision-based representation. It is evident that
+                    our model adeptly captures the dynamic semantic information conveyed by the audio input, resulting
+                    in more extreme outcomes, such as a more fiercely growling tiger. Without the audio adapter, despite
+                    maintaining all other settings, the generated images still struggle to capture more than the most salient
+                    features, lacking the detail necessary for generating finer attributes. This limitation arises primarily
+                    because each audio sample possesses its unique context, thus offering guidance that is richer than a
+                    vision-based representation alone.
+                    </p>
+    
+                    <div class="center-img">
+                        <figure>
+                            <img class="content" src="figs/Fig_kinds_thunder-5.14.png"/>
+                        </figure>
+                    </div>
+            </div>
+
+            <div class="center-img">
+                <figure>
+                    <figcaption style="text-align: center;"> 🔊Thunder 1.</figcaption>
+                    <audio controls>
+                        <source src="wavs/thunders/thunder1.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <figcaption style="text-align: center;"> 🔊Thunder 2.</figcaption>
+                    <audio controls>
+                        <source src="wavs/thunders/thunder2.wav" type="audio/wav">
+                    </audio>
+                </figure>
+                <figure>
+                    <figcaption style="text-align: center;"> 🔊Thunder 3.</figcaption>
+                    <audio controls>
+                        <source src="wavs/thunders/thunder3.wav" type="audio/wav">
+                    </audio>
+                </figure>
+            </div>
+
+
+
+
+
+
+        </div>
+            
+    
+
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
